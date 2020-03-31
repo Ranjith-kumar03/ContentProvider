@@ -32,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
     public void getContacts()
     {
         ArrayList<String> list=new ArrayList<>();
-        Uri uri= ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-        String[] projection={ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,ContactsContract.CommonDataKinds.Phone.NUMBER};
+       // Uri uri= ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+        Uri uri=Uri.parse("content://com.example.sqldatabase.student.contentprovider");
+        String[] projection=null;
         String selection=null;
         String[] selectionArgs=null;
         String sortOrder=null;
@@ -41,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = resolver.query(uri, projection, selection, selectionArgs,sortOrder);
         while(cursor.moveToNext())
         {
-            String name=cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            String phone=cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            String name=cursor.getString(cursor.getColumnIndex("name"));
+            String phone=cursor.getString(cursor.getColumnIndex("age"));
             Log.d(TAG, "getContacts: "+name+" / "+phone);
             list.add(name+" / "+phone);
         }
